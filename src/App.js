@@ -1,29 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { use, useEffect } from 'react';
 import './style.css';
-import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
+import { globalAppState } from './mobx/appState';
 
-export default function App() {
-  const createTimer = () => {
-    makeAutoObservable({
-      secondsPassed: 0,
-      increase() {
-        this.secondsPassed += 1;
-      },
-      reset() {
-        this.secondsPassed = 0;
-      },
-    });
-  };
-  const mytimer = createTimer();
-  const TimerView = observer(({ timer }) => {
-    return hello;
-  });
+export const App = observer(() => {
+  useEffect(() => {
+    console.log(globalAppState?.obj?.name)
+    globalAppState.updateState({mobile:10000000})
+    console.log(globalAppState?.obj?.mobile)
+    
+  }, [])
   return (
-    <div>
-      <p>mobx</p>
-      <TimerView timer={mytimer} />
-    </div>
-  );
-}
+    <>
+      <p>Hello from app</p>
+    </>
+  )
+})
+export default App
